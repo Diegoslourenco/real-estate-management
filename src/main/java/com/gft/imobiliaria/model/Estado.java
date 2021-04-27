@@ -9,20 +9,25 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 /**
- * Categoria --- represents a type for a property.
+ * Estado --- represents a state in a country.
  * @author    Diego da Silva Lourenco
  */
 
 @Entity
-@Table(name = "categorias")
-public class Categoria {
+@Table(name = "estados")
+public class Estado {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
+	@NotBlank(message = "Unidade federativa é obrigatória")
+	@Size(max = 2, message = "UF deve conter 2 caracteres")
+	@Size(max = 2, message = "UF deve conter 2 caracteres")
+	private String uf;
+	
 	@NotBlank(message = "Nome é obrigatório")
-	@Size(max = 20, message = "A categoria não pode conter mais de 20 caracteres")
+	@Size(max = 20, message = "Estado não pode conter mais de 20 caracteres")
 	private String name;
 
 	public long getId() {
@@ -31,6 +36,14 @@ public class Categoria {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public String getUf() {
+		return uf;
+	}
+
+	public void setUf(String uf) {
+		this.uf = uf;
 	}
 
 	public String getName() {
@@ -57,7 +70,7 @@ public class Categoria {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Categoria other = (Categoria) obj;
+		Estado other = (Estado) obj;
 		if (id != other.id)
 			return false;
 		return true;
