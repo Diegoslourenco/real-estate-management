@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{ImobiliariaLayout}">
+	
+<head>
+	<title>Estados</title>
+</head>
+
+<section layout:fragment="content">
+	<div th:replace="MensagemGeral"></div>	
+
+	<div class="panel panel-default">
+	  	<div class="panel-heading">
+	  		<div class="clearfix">
+				<h1 class="panel-title gft-title-panel">Estados</h1>
+				<a class="btn btn-link gft-link-panel" href="/estados/novo">Novo estado</a>
+			</div>
+		</div>
+			
+		<div class="panel-body">
+		
+			<div class="row" th:object="${filter}">
+					
+				<div class="col-lg-8">	
+					<form method="GET" class="form-horizontal" action="/estados">							
+						<div class="form-group">		
+							<div class="col-sm-6">
+								<div class="input-group">
+									<input class="form-control" placeholder="Qual estado você está procurando?"
+									autofocus="autofocus" th:field="*{text}">
+									<span class="input-group-btn">
+										<button type="submit" class="btn btn-default">
+											<i class="glyphicon glyphicon-search"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+							
+			</div>
+			
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped align-middle">
+					<thead>
+						<tr>
+							<th id="id-header" class="text-center col-md-1">#</th>
+							<th id="uf-header" class="text-center col-md-1">UF</th>
+							<th id="name-header" class="text-center col-md-2">Estado</th>				
+							<th class="col-md-2">Opções</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="estado, count : ${estados}">
+							<td class="text-center" th:text="${count.index+1}"></td>
+							<td class="text-center" th:text="${estado.uf}"></td>
+							<td th:text="${estado.name}"></td>
+							<td class="text-center">
+								<a class="btn btn-link btn-xs" th:href="@{/estados/{id}(id=${estado.id})}"
+										title="Editar" rel="tooltip" data-placement="top">
+									<span class="glyphicon glyphicon-pencil"></span>
+								</a>
+								<a class="btn btn-link btn-xs" data-toggle="modal" data-target="#confirmarExclusaoModal"
+									th:attr="data-id=${estado.id}, data-description=${estado.name},
+											data-url='estados'"
+									title="Excluir" rel="tooltip" data-placement="top">
+									<span class="glyphicon glyphicon-remove"></span>
+								</a>
+							</td>
+						<tr>
+							<td colspan="10" th:if="${#lists.isEmpty(estados)}">Nenhum estado foi encontrado</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+		<div th:replace="ConfirmarExclusao"></div>
+		
+	</div>
+</section>
+</html>
