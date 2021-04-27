@@ -6,3 +6,9 @@ INSERT INTO categorias (`name`) VALUES ('Chácara')
 # negocios
 INSERT INTO negocios (`name`) VALUES ('Alugar')
 INSERT INTO negocios (`name`) VALUES ('Comprar')
+
+# estado
+INSERT INTO estados (`uf`, `name`) VALUES ('BA', 'Bahia')
+INSERT INTO estados (`uf`, `name`) VALUES ('CE', 'Ceará')
+INSERT INTO estados (`uf`, `name`) VALUES ('RJ', 'Rio de Janeiro')
+INSERT INTO estados (`uf`, `name`) VALUES ('SP', 'São Paulo')

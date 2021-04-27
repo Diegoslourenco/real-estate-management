@@ -15,30 +15,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.gft.imobiliaria.model.Categoria;
-import com.gft.imobiliaria.repository.filter.CategoriaFilter;
-import com.gft.imobiliaria.service.CategoriaService;
+import com.gft.imobiliaria.model.Estado;
+import com.gft.imobiliaria.repository.filter.EstadoFilter;
+import com.gft.imobiliaria.service.EstadoService;
 
 @Controller
-@RequestMapping("/categorias")
-public class CategoriaController {
+@RequestMapping("/estados")
+public class EstadoController {
 	
-	private static final String CADASTRO_VIEW = "categoria/CategoriaCadastro";
-	private static final String BUSCA_VIEW = "categoria/CategoriaBusca";
+	private static final String CADASTRO_VIEW = "estado/EstadoCadastro";
+	private static final String BUSCA_VIEW = "estado/EstadoBusca";
 	
 	@Autowired
-	private CategoriaService categoriaService;
+	private EstadoService estadoService;
 	
 	@GetMapping("/novo")
-	public ModelAndView novaCategoria() {
+	public ModelAndView novoEstado() {
 		ModelAndView mv = new ModelAndView(CADASTRO_VIEW);
-		mv.addObject("categoria", new Categoria());
+		mv.addObject("estado", new Estado());
 		
 		return mv;
 	}
 	
 	@PostMapping
-	public ModelAndView save(@Validated Categoria categoria, Errors errors, RedirectAttributes attributes) {
+	public ModelAndView save(@Validated Estado estado, Errors errors, RedirectAttributes attributes) {
 		
 		ModelAndView mv = new ModelAndView();
 		
@@ -48,38 +48,39 @@ public class CategoriaController {
 			return mv;
 		}
 		
-		categoriaService.save(categoria);
+		estadoService.save(estado);
 		
-		mv = new ModelAndView("redirect:/categorias/novo");
-		attributes.addFlashAttribute("message", "Categoria salva com sucesso");
+		mv = new ModelAndView("redirect:/estados/novo");
+		attributes.addFlashAttribute("message", "Estado salvo com sucesso");
 		
 		return mv;
 	}
 	
 	@GetMapping
-	public ModelAndView search(@ModelAttribute("filter") CategoriaFilter categoriaFilter) {	
-		List<Categoria> allCategorias = categoriaService.get(categoriaFilter);
+	public ModelAndView search(@ModelAttribute("filter") EstadoFilter estadoFilter) {	
+		List<Estado> allEstados = estadoService.get(estadoFilter);
 		
 		ModelAndView mv = new ModelAndView(BUSCA_VIEW);
-		mv.addObject("categorias", allCategorias);
+		mv.addObject("estados", allEstados);
 		
 		return mv;
 	}
 	
 	@GetMapping("{id}")
-	public ModelAndView update(@PathVariable("id") Categoria categoria) {
+	public ModelAndView update(@PathVariable("id") Estado estado) {
 		ModelAndView mv = new ModelAndView(CADASTRO_VIEW);
-		mv.addObject(categoria);
+		mv.addObject(estado);
 		
 		return mv;
 	}
 	
 	@DeleteMapping("{id}")
 	public ModelAndView delete(@PathVariable Long id, RedirectAttributes attributes) {
-		categoriaService.delete(id);
+		estadoService.delete(id);
 		
-		ModelAndView mv = new ModelAndView("redirect:/categorias");	
-		attributes.addFlashAttribute("message", "Categoria removida com sucesso");
+		ModelAndView mv = new ModelAndView("redirect:/estados");
+		
+		attributes.addFlashAttribute("message", "Estado removido com sucesso");
 		
 		return mv;
 	}

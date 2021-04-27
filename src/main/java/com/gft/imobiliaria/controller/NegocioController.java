@@ -75,11 +75,13 @@ public class NegocioController {
 	}
 	
 	@DeleteMapping("{id}")
-	public String delete(@PathVariable Long id, RedirectAttributes attributes) {
+	public ModelAndView delete(@PathVariable Long id, RedirectAttributes attributes) {
 		negocioService.delete(id);
+		
+		ModelAndView mv = new ModelAndView("redirect:/negocios");
 		
 		attributes.addFlashAttribute("message", "Negócio removido com sucesso");
 		
-		return "redirect:/negocios";
+		return mv;
 	}
 }
