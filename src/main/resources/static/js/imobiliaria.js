@@ -8,6 +8,7 @@ $('#confirmarExclusaoModal').on('show.bs.modal', function(event) {
 	// Saves the objects's field
 	var id = button.data('id');
 	var description = button.data('description');
+	var url = button.data('url');
 	
 	// Defines the variable modal in order to use the methods
 	var modal = $(this);
@@ -16,10 +17,8 @@ $('#confirmarExclusaoModal').on('show.bs.modal', function(event) {
 	var form = modal.find('form');
 	var action = form.data('url-base');
 	
-	// In case the action string do not end with slash, add a slash
-	if (!action.endsWith('/')) {
-		action+= '/';
-	}
+	// Add the url and a slash to complete the action
+	action += url + '/';
 	
 	// Adds to the action string the id
 	form.attr('action', action + id);

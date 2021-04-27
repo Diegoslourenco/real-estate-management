@@ -1,7 +1,7 @@
-package com.gft.book.filter;
+package com.gft.imobiliaria.repository.filter;
 
 /**
- * Categoria --- represents the text in the search for a Categoria in the repository.
+ * CategoriaFilter --- represents the text in the search for a Categoria in the repository.
  * @author    Diego da Silva Lourenco
  */
 

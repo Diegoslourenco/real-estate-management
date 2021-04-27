@@ -1,13 +1,13 @@
-package com.gft.book.service;
+package com.gft.imobiliaria.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.gft.book.filter.CategoriaFilter;
-import com.gft.book.model.Categoria;
-import com.gft.book.repository.CategoriasRepository;
+import com.gft.imobiliaria.repository.filter.CategoriaFilter;
+import com.gft.imobiliaria.model.Categoria;
+import com.gft.imobiliaria.repository.CategoriasRepository;
 
 @Service
 public class CategoriaService {
