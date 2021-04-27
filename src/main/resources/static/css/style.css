@@ -26,6 +26,10 @@
 		font-size: 15px;
 		padding-top: 39px;
 	}
+	
+	.gft-link-text {
+		font-size: 20px;
+	}
 }
 
 @media (max-width: 768px) {
@@ -46,8 +50,18 @@
 		font-size: 10px;
 		padding-top: 16px;
 	}
+	
+	.gft-link-text {
+		font-size: 10px;
+	}
+	
+	.navbar-right > li {
+        display: inline-block;
+        margin-top: -15px;
+    }
 }
 
+.gft-container-links,
 .container-fluid {
 	background-color: #1d4786;
 }
