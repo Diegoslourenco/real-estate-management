@@ -1,4 +1,4 @@
-package com.gft.book;
+package com.gft.imobiliaria;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
