@@ -1,4 +1,4 @@
-package com.gft.book.controller;
+package com.gft.imobiliaria.controller;
 
 import java.util.List;
 
@@ -15,16 +15,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.gft.book.filter.CategoriaFilter;
-import com.gft.book.model.Categoria;
-import com.gft.book.service.CategoriaService;
+import com.gft.imobiliaria.model.Categoria;
+import com.gft.imobiliaria.repository.filter.CategoriaFilter;
+import com.gft.imobiliaria.service.CategoriaService;
 
 @Controller
 @RequestMapping("/categorias")
 public class CategoriaController {
 	
-	private static final String CADASTRO_VIEW = "CategoriaCadastro";
-	private static final String BUSCA_VIEW = "CategoriaBusca";
+	private static final String CADASTRO_VIEW = "categoria/CategoriaCadastro";
+	private static final String BUSCA_VIEW = "categoria/CategoriaBusca";
 	
 	@Autowired
 	private CategoriaService categoriaService;

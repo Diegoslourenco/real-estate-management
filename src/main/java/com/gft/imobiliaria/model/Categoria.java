@@ -1,4 +1,4 @@
-package com.gft.book.model;
+package com.gft.imobiliaria.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,8 +18,7 @@ import javax.validation.constraints.Size;
 public class Categoria {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY) long id;
 	
 	@NotBlank(message = "Nome é obrigatório")
 	@Size(max = 20, message = "A categoria não pode conter mais de 20 caracteres")

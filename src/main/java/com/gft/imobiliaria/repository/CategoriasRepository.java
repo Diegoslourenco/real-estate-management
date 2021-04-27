@@ -1,10 +1,10 @@
-package com.gft.book.repository;
+package com.gft.imobiliaria.repository;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.gft.book.model.Categoria;
+import com.gft.imobiliaria.model.Categoria;
 
 public interface CategoriasRepository extends JpaRepository<Categoria, Long>{
 	
