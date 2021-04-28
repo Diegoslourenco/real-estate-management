@@ -15,18 +15,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.gft.imobiliaria.model.Municipio;
-import com.gft.imobiliaria.repository.filter.MunicipioFilter;
-import com.gft.imobiliaria.service.EstadoService;
+import com.gft.imobiliaria.model.Bairro;
+import com.gft.imobiliaria.repository.filter.BairroFilter;
 import com.gft.imobiliaria.service.MunicipioService;
+import com.gft.imobiliaria.service.BairroService;
+import com.gft.imobiliaria.service.EstadoService;
 
 @Controller
-@RequestMapping("/municipios")
-public class MunicipioController {
+@RequestMapping("/bairros")
+public class BairroController {
 	
-	private static final String CADASTRO_VIEW = "municipio/MunicipioCadastro";
-	private static final String BUSCA_VIEW = "municipio/MunicipioBusca";
-	private static final String CADASTRO_ERRO_VIEW = "municipio/MunicipioCadastroErro";
+	private static final String CADASTRO_VIEW = "bairro/BairroCadastro";
+	private static final String BUSCA_VIEW = "bairro/BairroBusca";
+	private static final String CADASTRO_ERRO_VIEW = "bairro/BairroCadastroErro";
+	
+	@Autowired
+	private BairroService bairroService;
 	
 	@Autowired
 	private MunicipioService municipioService;
@@ -35,10 +39,10 @@ public class MunicipioController {
 	private EstadoService estadoService;
 	
 	@GetMapping("/novo")
-	public ModelAndView novoMunicipio() {
+	public ModelAndView novoBairro() {
 		ModelAndView mv = new ModelAndView();
 		
-		if (estadoService.getAll().isEmpty()) {
+		if (municipioService.getAll().isEmpty()) {
 			
 			mv.setViewName(CADASTRO_ERRO_VIEW);
 			
@@ -46,14 +50,15 @@ public class MunicipioController {
 		}
 		
 		mv.setViewName(CADASTRO_VIEW);
-		mv.addObject("municipio", new Municipio());
+		mv.addObject("bairro", new Bairro());
+		mv.addObject("municipios", municipioService.getAll());
 		mv.addObject("estados", estadoService.getAll());
 		
 		return mv;
 	}
 	
 	@PostMapping
-	public ModelAndView save(@ModelAttribute("municipio") @Validated Municipio municipio, Errors errors, RedirectAttributes attributes) {
+	public ModelAndView save(@ModelAttribute("bairro") @Validated Bairro bairro, Errors errors, RedirectAttributes attributes) {
 		
 		ModelAndView mv = new ModelAndView();
 		
@@ -63,29 +68,30 @@ public class MunicipioController {
 			return mv;
 		}
 		
-		municipioService.save(municipio);
+		bairroService.save(bairro);
 		
-		mv = new ModelAndView("redirect:/municipios/novo");
-		attributes.addFlashAttribute("message", "Municipio salvo com sucesso");
+		mv = new ModelAndView("redirect:/bairros/novo");
+		attributes.addFlashAttribute("message", "Bairro salvo com sucesso");
 		
 		return mv;
 	}
 	
 	@GetMapping
-	public ModelAndView search(@ModelAttribute("filter") MunicipioFilter municipioFilter) {	
-		List<Municipio> allMunicipios = municipioService.get(municipioFilter);
+	public ModelAndView search(@ModelAttribute("filter") BairroFilter bairroFilter) {	
+		List<Bairro> allBairros = bairroService.get(bairroFilter);
 		
 		ModelAndView mv = new ModelAndView(BUSCA_VIEW);
-		mv.addObject("municipios", allMunicipios);
+		mv.addObject("bairros", allBairros);
 
 		return mv;
 	}
 	
 	@GetMapping("{id}")
-	public ModelAndView update(@PathVariable("id") Municipio municipio) {
+	public ModelAndView update(@PathVariable("id") Bairro bairro) {
 		
 		ModelAndView mv = new ModelAndView(CADASTRO_VIEW);
-		mv.addObject(municipio);
+		mv.addObject(bairro);
+		mv.addObject("municipios", municipioService.getAll());
 		mv.addObject("estados", estadoService.getAll());
 		
 		return mv;
@@ -93,11 +99,11 @@ public class MunicipioController {
 	
 	@DeleteMapping("{id}")
 	public ModelAndView delete(@PathVariable Long id, RedirectAttributes attributes) {
-		municipioService.delete(id);
+		bairroService.delete(id);
 		
-		ModelAndView mv = new ModelAndView("redirect:/municipios");
+		ModelAndView mv = new ModelAndView("redirect:/bairros");
 		
-		attributes.addFlashAttribute("message", "Municipio removido com sucesso");
+		attributes.addFlashAttribute("message", "Bairro removido com sucesso");
 		
 		return mv;
 	}

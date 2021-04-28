@@ -1,44 +1,44 @@
 package com.gft.imobiliaria.model;
 
-import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- * Estado --- represents a state in a country.
+ * Bairro --- represents a district in a city.
  * @author    Diego da Silva Lourenco
  */
 
 @Entity
-@Table(name = "estados")
-public class Estado {
+@Table(name = "bairros")
+public class Bairro {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@NotBlank(message = "Unidade federativa é obrigatória")
-	@Size(max = 2, message = "UF deve conter 2 caracteres")
-	@Size(max = 2, message = "UF deve conter 2 caracteres")
-	private String uf;
-	
 	@NotBlank(message = "Nome é obrigatório")
-	@Size(max = 20, message = "Estado não pode conter mais de 20 caracteres")
+	@Size(max = 20, message = "Bairro não pode conter mais de 20 caracteres")
 	private String name;
 	
-	@OneToMany(mappedBy = "state", cascade = CascadeType.ALL)
-	private List<Municipio> municipios;
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "city_id")
+	@NotNull
+	private Municipio city;
 	
-	@OneToMany(mappedBy = "state", cascade = CascadeType.ALL)
-	private List<Bairro> bairros;
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "state_id")
+	@NotNull
+	private Estado state;
 
 	public long getId() {
 		return id;
@@ -46,14 +46,6 @@ public class Estado {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public String getUf() {
-		return uf;
-	}
-
-	public void setUf(String uf) {
-		this.uf = uf;
 	}
 
 	public String getName() {
@@ -64,20 +56,20 @@ public class Estado {
 		this.name = name;
 	}
 	
-	public List<Municipio> getMunicipios() {
-		return municipios;
+	public Municipio getCity() {
+		return city;
 	}
 
-	public void setMunicipios(List<Municipio> municipios) {
-		this.municipios = municipios;
-	}
-	
-	public List<Bairro> getBairros() {
-		return bairros;
+	public void setCity(Municipio city) {
+		this.city = city;
 	}
 
-	public void setBairros(List<Bairro> bairros) {
-		this.bairros = bairros;
+	public Estado getState() {
+		return state;
+	}
+
+	public void setState(Estado state) {
+		this.state = state;
 	}
 
 	@Override
@@ -96,7 +88,7 @@ public class Estado {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Estado other = (Estado) obj;
+		Bairro other = (Bairro) obj;
 		if (id != other.id)
 			return false;
 		return true;
