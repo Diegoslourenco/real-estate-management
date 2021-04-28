@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gft.imobiliaria.model.Municipio;
 import com.gft.imobiliaria.repository.filter.MunicipioFilter;
+import com.gft.imobiliaria.service.EstadoService;
 import com.gft.imobiliaria.service.MunicipioService;
 
 @Controller
@@ -25,20 +26,33 @@ public class MunicipioController {
 	
 	private static final String CADASTRO_VIEW = "municipio/MunicipioCadastro";
 	private static final String BUSCA_VIEW = "municipio/MunicipioBusca";
+	private static final String CADASTRO_ERRO_VIEW = "municipio/MunicipioCadastroErro";
 	
 	@Autowired
 	private MunicipioService municipioService;
 	
+	@Autowired
+	private EstadoService estadoService;
+	
 	@GetMapping("/novo")
 	public ModelAndView novoMunicipio() {
-		ModelAndView mv = new ModelAndView(CADASTRO_VIEW);
+		ModelAndView mv = new ModelAndView();
+		
+		if (estadoService.getAll().isEmpty()) {
+			mv.setViewName(CADASTRO_ERRO_VIEW);
+			
+			return mv;
+		}
+		
+		mv.setViewName(CADASTRO_VIEW);
 		mv.addObject("municipio", new Municipio());
+		mv.addObject("estados", estadoService.getAll());
 		
 		return mv;
 	}
 	
 	@PostMapping
-	public ModelAndView save(@Validated Municipio municipio, Errors errors, RedirectAttributes attributes) {
+	public ModelAndView save(@ModelAttribute("municipio") @Validated Municipio municipio, Errors errors, RedirectAttributes attributes) {
 		
 		ModelAndView mv = new ModelAndView();
 		
@@ -62,7 +76,7 @@ public class MunicipioController {
 		
 		ModelAndView mv = new ModelAndView(BUSCA_VIEW);
 		mv.addObject("municipios", allMunicipios);
-		
+
 		return mv;
 	}
 	
@@ -70,6 +84,7 @@ public class MunicipioController {
 	public ModelAndView update(@PathVariable("id") Municipio municipio) {
 		ModelAndView mv = new ModelAndView(CADASTRO_VIEW);
 		mv.addObject(municipio);
+		mv.addObject("estados", estadoService.getAll());
 		
 		return mv;
 	}

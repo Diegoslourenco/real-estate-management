@@ -1,6 +1,8 @@
 package com.gft.imobiliaria.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,7 +30,7 @@ public class Municipio {
 	@Size(max = 20, message = "Estado não pode conter mais de 20 caracteres")
 	private String name;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "state_id")
 	@NotNull
 	private Estado state;
@@ -49,11 +51,11 @@ public class Municipio {
 		this.name = name;
 	}
 
-	public Estado getEstado() {
+	public Estado getState() {
 		return state;
 	}
 
-	public void setEstado(Estado state) {
+	public void setState(Estado state) {
 		this.state = state;
 	}
 

@@ -32,4 +32,3 @@ public class MunicipioService {
 		municipios.deleteById(id);
 	}
 }
-
