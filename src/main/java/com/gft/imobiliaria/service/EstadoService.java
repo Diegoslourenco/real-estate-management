@@ -27,6 +27,10 @@ public class EstadoService {
 		
 		return estados.findByNameContaining(estadoFilter.getText());
 	}
+	
+	public List<Estado> getAll() {
+		return estados.findAll();
+	}
 
 	public void delete(Long id) {
 		estados.deleteById(id);
