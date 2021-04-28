@@ -24,8 +24,15 @@ $('#confirmarExclusaoModal').on('show.bs.modal', function(event) {
 	form.attr('action', action + id);
 	
 	// Adds to the message the description to be deleted
-	modal.find('.modal-body span').html('Tem certeza que deseja excluir <strong>' + description + '</strong>?');
-
+	if (url === 'estados') {
+		modal.find('.modal-body span').html('Tem certeza que deseja excluir <strong>' + description + '</strong> e os municípios e bairros associados?');
+	}
+	else if (url === 'municipios') {
+		modal.find('.modal-body span').html('Tem certeza que deseja excluir <strong>' + description + '</strong> e os bairros associados?');
+	}
+	else {
+		modal.find('.modal-body span').html('Tem certeza que deseja excluir <strong>' + description + '</strong>?');
+	}
 });
 
 
