@@ -13,8 +13,14 @@ INSERT INTO estados (`uf`, `name`) VALUES ('CE', 'Ceará')
 INSERT INTO estados (`uf`, `name`) VALUES ('RJ', 'Rio de Janeiro')
 INSERT INTO estados (`uf`, `name`) VALUES ('SP', 'São Paulo')
 
-#municipios
+# municipios
 INSERT INTO municipios (`name`, `state_id`) VALUES ('Salvador', 1)
 INSERT INTO municipios (`name`, `state_id`) VALUES ('Fortaleza', 2)
 INSERT INTO municipios (`name`, `state_id`) VALUES ('Petrópolis', 3)
 INSERT INTO municipios (`name`, `state_id`) VALUES ('Sorocaba', 4)
+
+# bairros
+INSERT INTO bairros (`name`, `city_id`, `state_id`) VALUES ('Pilar', 1, 1)
+INSERT INTO bairros (`name`, `city_id`, `state_id`) VALUES ('Fátima', 2, 2)
+INSERT INTO bairros (`name`, `city_id`, `state_id`) VALUES ('Alto da Serra', 3, 3)
+INSERT INTO bairros (`name`, `city_id`, `state_id`) VALUES ('Santa Rosália', 4, 4)
