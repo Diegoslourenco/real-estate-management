@@ -1,5 +1,7 @@
 package com.gft.imobiliaria.model;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -30,10 +33,13 @@ public class Municipio {
 	@Size(max = 20, message = "Estado não pode conter mais de 20 caracteres")
 	private String name;
 	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "state_id")
 	@NotNull
 	private Estado state;
+	
+	@OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
+	private List<Bairro> bairros;
 
 	public long getId() {
 		return id;
@@ -57,6 +63,14 @@ public class Municipio {
 
 	public void setState(Estado state) {
 		this.state = state;
+	}
+	
+	public List<Bairro> getBairros() {
+		return bairros;
+	}
+
+	public void setBairros(List<Bairro> bairros) {
+		this.bairros = bairros;
 	}
 
 	@Override

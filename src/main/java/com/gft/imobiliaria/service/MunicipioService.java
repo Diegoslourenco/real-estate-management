@@ -31,4 +31,8 @@ public class MunicipioService {
 	public void delete(Long id) {
 		municipios.deleteById(id);
 	}
+
+	public List<Municipio> getAll() {
+		return municipios.findAll();
+	}
 }
