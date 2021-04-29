@@ -1,5 +1,4 @@
-// Function that gets the bookId to be deleted abd show the book's title in the modal confirmation
-
+// Function that gets the element id to be deleted and show the description in the modal confirmation
 $('#confirmarExclusaoModal').on('show.bs.modal', function(event) {
 	
 	// Receives the button that started the event in the html file
@@ -37,18 +36,23 @@ $('#confirmarExclusaoModal').on('show.bs.modal', function(event) {
 
 
 // Everytime the page refreshes it looks for the class and calls the function
-
 $(function() {
 	$('[rel="tooltip"]').tooltip();
 	
 	$('.js-currency').maskMoney({decimal: ',', thousands: '.'});
 });
 
+// Filter a select option according to the previous one
+$('#state').on('change', function(e) {
+      let selector = $(this).val();
+      $("#city > option").hide();
+      $("#city > option").filter(function(){return $(this).data('choice') == selector}).show();
+});
 
 // Sorting the table on click in the fields
 var table = $('table');
     
-$('#id-header, #name-header')
+$('#id-header, #name-header, #state-header, #city-header')
     .wrapInner('<span title="sort this column"/>')
     .each( function () {
         
@@ -56,9 +60,9 @@ $('#id-header, #name-header')
             thIndex = th.index(),
             inverse = false;
         
-        th.click(function(){
+        th.click(function() {
             
-            table.find('td').filter(function(){
+            table.find('td').filter( function() {
                 
                 return $(this).index() === thIndex;
                 
@@ -68,9 +72,9 @@ $('#id-header, #name-header')
                     inverse ? -1 : 1
                     : inverse ? 1 : -1;
                 
-            }, function(){
+            }, function() {
                 
-                // parentNode is the element we want to move
+                // parentNode is the element to move
                 return this.parentNode; 
                 
             });
@@ -80,5 +84,3 @@ $('#id-header, #name-header')
         });
             
     });
-
-

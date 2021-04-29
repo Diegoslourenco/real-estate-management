@@ -25,30 +25,30 @@
 			
   			<div class="panel-body">
   				<input type="hidden" th:field="*{id}"/>
+		
+  				<div class="form-group">
+  					<label id="state" for="state" class="col-sm-2 control-label">Estado</label>
+  					<div class="col-sm-2">
+  						<select class="form-control" name="state" th:field="*{state}">
+  							<option th:each="estado : ${estados}" th:value="${estado.id}" th:text="${estado.name}"></option>
+  						</select>	
+  					</div>		
+  				</div>	  		
+  				
+  				<div class="form-group">
+  					<label id="city" for="city" class="col-sm-2 control-label">Município</label>
+  					<div class="col-sm-2">
+  						<select class="form-control" name="city" th:field="*{city}">
+  							<option th:each="municipio : ${municipios}" th:value="${municipio.id}" th:text="${municipio.name}"></option>
+  						</select>
+  					</div>
+  				</div>
   				
   				<div class="form-group" th:classappend="${#fields.hasErrors('name')} ? 'has-error'">
   					<label for="name" class="col-sm-2 control-label">Nome</label>
   					<div class="col-sm-4">
   						<input type="text" class="form-control" id="name" th:field="*{name}"
   								placeholder="Nome do Bairro"/>
-  					</div>
-  				</div>
-  				
-  				<div class="form-group">
-  					<label for="city" class="col-sm-2 control-label">Município</label>
-  					<div class="col-sm-2">
-  						<select class="form-control" name="city" th:field="*{city}">
-  							<option th:each="municipio : ${municipios}" th:value="${municipio.id}" th:text="${municipio.name}"></option>
-  						</select>
-  					</div>
-  				</div>	
-  				
-  				<div class="form-group">
-  					<label for="state" class="col-sm-2 control-label">Estado</label>
-  					<div class="col-sm-2">
-  						<select class="form-control" name="state" th:field="*{state}">
-  							<option th:each="estado : ${estados}" th:value="${estado.id}" th:text="${estado.name}"></option>
-  						</select>
   					</div>
   				</div>			
 

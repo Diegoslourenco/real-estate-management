@@ -1,5 +1,4 @@
 package com.gft.imobiliaria.model;
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
