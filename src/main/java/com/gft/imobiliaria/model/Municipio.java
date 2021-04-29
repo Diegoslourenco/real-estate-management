@@ -33,7 +33,7 @@ public class Municipio {
 	@Size(max = 20, message = "Estado não pode conter mais de 20 caracteres")
 	private String name;
 	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "state_id")
 	@NotNull
 	private Estado state;

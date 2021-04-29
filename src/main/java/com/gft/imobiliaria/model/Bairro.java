@@ -30,12 +30,12 @@ public class Bairro {
 	@Size(max = 20, message = "Bairro não pode conter mais de 20 caracteres")
 	private String name;
 	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "city_id")
 	@NotNull
 	private Municipio city;
 	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "state_id")
 	@NotNull
 	private Estado state;
