@@ -1,5 +1,7 @@
 package com.gft.imobiliaria.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gft.imobiliaria.model.Bairro;
+import com.gft.imobiliaria.model.Estado;
+import com.gft.imobiliaria.model.Municipio;
 import com.gft.imobiliaria.repository.filter.BairroFilter;
 import com.gft.imobiliaria.service.MunicipioService;
 import com.gft.imobiliaria.service.BairroService;
@@ -52,7 +56,6 @@ public class BairroController {
 		mv.setViewName(CADASTRO_VIEW);
 		mv.addObject("bairro", new Bairro());
 		mv.addObject("municipios", municipioService.getAll());
-		mv.addObject("estados", estadoService.getAll());
 		
 		return mv;
 	}
@@ -91,8 +94,6 @@ public class BairroController {
 		
 		ModelAndView mv = new ModelAndView(CADASTRO_VIEW);
 		mv.addObject(bairro);
-		mv.addObject("municipios", municipioService.getAll());
-		mv.addObject("estados", estadoService.getAll());
 		
 		return mv;
 	}
@@ -106,5 +107,54 @@ public class BairroController {
 		attributes.addFlashAttribute("message", "Bairro removido com sucesso");
 		
 		return mv;
+	}
+	
+	@ModelAttribute("estados")
+	public List<Estado> allEstados() {
+		return estadoService.getAll();
+	}
+	
+	@ModelAttribute("citiesMappedByState")
+	public HashMap<Long, ArrayList<Long>> citiesMappedByState() {
+		
+		List<Estado> allEstados = estadoService.getAll();
+		HashMap<Long, ArrayList<Long>> map = new HashMap<Long, ArrayList<Long>>();			
+		
+		for (Estado estado : allEstados) {
+			
+			long key = estado.getId();
+			
+			// Ensure that a Estado without Municipio is mapped
+			if (estado.getMunicipios().isEmpty()) {
+				map.put(key, new ArrayList<Long>());
+			}
+			
+			for (Municipio municipio : estado.getMunicipios()) {
+				
+				if (!map.containsKey(estado.getId())) {
+					
+					map.put(key, new ArrayList<Long>());
+					map.get(key).add(municipio.getId());
+				}
+				else {
+					map.get(key).add(municipio.getId());
+				}
+			}
+		}
+		
+		return map;
+	}
+		
+	@ModelAttribute("citiesNameMappedById")
+	public HashMap<Long, String> citiesNameMappedById() {
+			
+		List<Municipio> allMunicipios = municipioService.getAll();
+		HashMap<Long, String> map = new HashMap<Long, String>();
+			
+		for (Municipio municipio : allMunicipios) {			
+			map.put(municipio.getId(), municipio.getName());
+		}
+			
+		return map;
 	}
 }

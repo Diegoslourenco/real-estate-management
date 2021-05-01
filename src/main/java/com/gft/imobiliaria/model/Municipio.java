@@ -35,7 +35,7 @@ public class Municipio {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "state_id")
-	@NotNull
+	@NotNull(message = "Estado deve ser selecionado")
 	private Estado state;
 	
 	@OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
