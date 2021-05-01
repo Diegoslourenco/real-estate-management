@@ -31,4 +31,8 @@ public class NegocioService {
 	public void delete(Long id) {
 		negocios.deleteById(id);
 	}
+
+	public List<Negocio> getAll() {
+		return negocios.findAll();
+	}
 }

@@ -39,6 +39,9 @@ public class Estado {
 	
 	@OneToMany(mappedBy = "state", cascade = CascadeType.ALL)
 	private List<Bairro> bairros;
+	
+	@OneToMany(mappedBy = "state", cascade = CascadeType.ALL)
+	private List<Imovel> imoveis;
 
 	public long getId() {
 		return id;
@@ -78,6 +81,14 @@ public class Estado {
 
 	public void setBairros(List<Bairro> bairros) {
 		this.bairros = bairros;
+	}
+
+	public List<Imovel> getImoveis() {
+		return imoveis;
+	}
+
+	public void setImoveis(List<Imovel> imoveis) {
+		this.imoveis = imoveis;
 	}
 
 	@Override
