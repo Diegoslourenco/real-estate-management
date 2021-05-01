@@ -30,12 +30,12 @@ public class Bairro {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "city_id")
-	@NotNull
+	@NotNull(message = "Município deve ser selecionado")
 	private Municipio city;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "state_id")
-	@NotNull
+	@NotNull(message = "Estado deve ser selecionado")
 	private Estado state;
 
 	public long getId() {

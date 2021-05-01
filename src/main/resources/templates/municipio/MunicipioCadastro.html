@@ -34,7 +34,7 @@
   					</div>
   				</div>
   				
-  				<div class="form-group">
+  				<div class="form-group" th:classappend="${#fields.hasErrors('state')} ? 'has-error'">
   					<label for="state" class="col-sm-2 control-label">Estado</label>
   					<div class="col-sm-2">
   						<select class="form-control" name="state" th:field="*{state}">
