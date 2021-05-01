@@ -15,7 +15,7 @@
 	  	<div class="panel-heading">
 	  		<div class="clearfix">
 				<h1 class="panel-title gft-title-panel">Imóveis</h1>
-				<a class="btn btn-link gft-link-panel" href="/bairros/novo">Novo imóvel</a>
+				<a class="btn btn-link gft-link-panel" href="/imoveis/novo">Novo imóvel</a>
 			</div>
 		</div>
 			
@@ -49,9 +49,10 @@
 						<tr>
 							<th id="id-header" class="text-center col-md-1">#</th>
 							<th id="name-header" class="text-center col-md-2">Nome</th>
+							<th id="bedroom-header" class="text-center col-md-1">Quartos</th>
 							<th id="business-header" class="text-center col-md-2">Negócio</th>
 							<th id="category-header" class="text-center col-md-2">Categoria</th>
-							<th id="bedroom-header" class="text-center col-md-1">Quartos</th>
+							<th id="address-header" class="text-center col-md-2">Endereço</th>
 							<th id="district-header" class="text-center col-md-2">Bairro</th>
 							<th id="city-header" class="text-center col-md-2">Município</th>
 							<th id="state-header" class="text-center col-md-2">Estado</th>				
@@ -62,14 +63,15 @@
 						<tr th:each="imovel, count : ${imoveis}">
 							<td class="text-center" th:text="${count.index+1}"></td>
 							<td class="text-center" th:text="${imovel.name}"></td>
-							<td class="text-center" th:text="${imovel.business}"></td>
-							<td class="text-center" th:text="${imovel.category}"></td>
 							<td class="text-center" th:text="${imovel.bedroom}"></td>
+							<td class="text-center" th:text="${imovel.business.name}"></td>
+							<td class="text-center" th:text="${imovel.category.name}"></td>
+							<td class="text-center" th:text="${imovel.address}"></td>
 							<td class="text-center" th:text="${imovel.district.name}"></td>			
 							<td class="text-center" th:text="${imovel.city.name}"></td>
-							<td class="text-center" th:text="${imovel.state.name}"></td>
+							<td class="text-center" th:text="${imovel.state.uf}"></td>
 							<td class="text-center">
-								<a class="btn btn-link btn-xs" th:href="@{/imoveis/{id}(id=${imoveis.id})}"
+								<a class="btn btn-link btn-xs" th:href="@{/imoveis/{id}(id=${imovel.id})}"
 										title="Editar" rel="tooltip" data-placement="top">
 									<span class="glyphicon glyphicon-pencil"></span>
 								</a>

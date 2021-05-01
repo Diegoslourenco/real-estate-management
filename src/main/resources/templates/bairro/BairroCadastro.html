@@ -45,7 +45,9 @@
   						<select id="city" class="form-control" name="city" th:field="*{city}">
   							<option th:if="${bairro.city == null}" th:value="0" th:text="'Selecione um estado'">
   							</option>
-  							<option th:if="${bairro.city != null}" th:value="${bairro.city}" th:text="${bairro.city.name}"></option>
+  							<option th:each="municipio : ${bairro.state.municipios}"
+  									th:value="${municipio.id}" th:text="${municipio.name}">
+  							</option>
   						</select>
   					</div>
   				</div>

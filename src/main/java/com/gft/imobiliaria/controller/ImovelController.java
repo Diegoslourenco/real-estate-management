@@ -1,7 +1,5 @@
 package com.gft.imobiliaria.controller;
 
-package com.gft.imobiliaria.controller;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,12 +18,18 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gft.imobiliaria.model.Bairro;
+import com.gft.imobiliaria.model.Categoria;
 import com.gft.imobiliaria.model.Estado;
+import com.gft.imobiliaria.model.Imovel;
 import com.gft.imobiliaria.model.Municipio;
-import com.gft.imobiliaria.repository.filter.BairroFilter;
+import com.gft.imobiliaria.model.Negocio;
+import com.gft.imobiliaria.repository.filter.ImovelFilter;
 import com.gft.imobiliaria.service.MunicipioService;
+import com.gft.imobiliaria.service.NegocioService;
 import com.gft.imobiliaria.service.BairroService;
+import com.gft.imobiliaria.service.CategoriaService;
 import com.gft.imobiliaria.service.EstadoService;
+import com.gft.imobiliaria.service.ImovelService;
 
 @Controller
 @RequestMapping("/imoveis")
@@ -33,7 +37,15 @@ public class ImovelController {
 	
 	private static final String CADASTRO_VIEW = "imovel/ImovelCadastro";
 	private static final String BUSCA_VIEW = "imovel/ImovelBusca";
-	private static final String CADASTRO_ERRO_VIEW = "bairro/BairroCadastroErro";
+	
+	@Autowired
+	private NegocioService negocioService;
+	
+	@Autowired
+	private CategoriaService categoriaService;	
+	
+	@Autowired
+	private ImovelService imovelService;
 	
 	@Autowired
 	private BairroService bairroService;
@@ -48,22 +60,14 @@ public class ImovelController {
 	public ModelAndView novoImovel() {
 		ModelAndView mv = new ModelAndView();
 		
-		if (municipioService.getAll().isEmpty()) {
-			
-			mv.setViewName(CADASTRO_ERRO_VIEW);
-			
-			return mv;
-		}
-		
 		mv.setViewName(CADASTRO_VIEW);
-		mv.addObject("bairro", new Bairro());
-		mv.addObject("municipios", municipioService.getAll());
+		mv.addObject("imovel", new Imovel());
 		
 		return mv;
 	}
 	
 	@PostMapping
-	public ModelAndView save(@ModelAttribute("bairro") @Validated Bairro bairro, Errors errors, RedirectAttributes attributes) {
+	public ModelAndView save(@ModelAttribute("imovel") @Validated Imovel imovel, Errors errors, RedirectAttributes attributes) {
 		
 		ModelAndView mv = new ModelAndView();
 		
@@ -73,42 +77,51 @@ public class ImovelController {
 			return mv;
 		}
 		
-		bairroService.save(bairro);
+		imovelService.save(imovel);
 		
-		mv = new ModelAndView("redirect:/bairros/novo");
-		attributes.addFlashAttribute("message", "Bairro salvo com sucesso");
+		mv = new ModelAndView("redirect:/imoveis/novo");
+		attributes.addFlashAttribute("message", "Imóvel salvo com sucesso");
 		
 		return mv;
 	}
 	
 	@GetMapping
-	public ModelAndView search(@ModelAttribute("filter") BairroFilter bairroFilter) {	
-		List<Bairro> allBairros = bairroService.get(bairroFilter);
+	public ModelAndView search(@ModelAttribute("filter") ImovelFilter imovelFilter) {	
 		
 		ModelAndView mv = new ModelAndView(BUSCA_VIEW);
-		mv.addObject("bairros", allBairros);
+		mv.addObject("imoveis", imovelService.get(imovelFilter));
 
 		return mv;
 	}
 	
 	@GetMapping("{id}")
-	public ModelAndView update(@PathVariable("id") Bairro bairro) {
+	public ModelAndView update(@PathVariable("id") Imovel imovel) {
 		
 		ModelAndView mv = new ModelAndView(CADASTRO_VIEW);
-		mv.addObject(bairro);
+		mv.addObject(imovel);
 		
 		return mv;
 	}
 	
 	@DeleteMapping("{id}")
 	public ModelAndView delete(@PathVariable Long id, RedirectAttributes attributes) {
-		bairroService.delete(id);
+		imovelService.delete(id);
 		
-		ModelAndView mv = new ModelAndView("redirect:/bairros");
+		ModelAndView mv = new ModelAndView("redirect:/imoveis");
 		
-		attributes.addFlashAttribute("message", "Bairro removido com sucesso");
+		attributes.addFlashAttribute("message", "Imóvel removido com sucesso");
 		
 		return mv;
+	}	
+	
+	@ModelAttribute("negocios")
+	public List<Negocio> allNegocios() {
+		return negocioService.getAll();
+	}
+	
+	@ModelAttribute("categorias")
+	public List<Categoria> allCategorias() {
+		return categoriaService.getAll();
 	}
 	
 	@ModelAttribute("estados")
@@ -159,5 +172,48 @@ public class ImovelController {
 			
 		return map;
 	}
+	
+	@ModelAttribute("districtsMappedByCity")
+	public HashMap<Long, ArrayList<Long>> districtsMappedByCity() {
+		
+		List<Municipio> allMunicipios = municipioService.getAll();
+		HashMap<Long, ArrayList<Long>> map = new HashMap<Long, ArrayList<Long>>();			
+		
+		for (Municipio municipio : allMunicipios) {
+			
+			long key = municipio.getId();
+			
+			// Ensure that a Municipio without Bairro is mapped
+			if (municipio.getBairros().isEmpty()) {
+				map.put(key, new ArrayList<Long>());
+			}
+			
+			for (Bairro bairro : municipio.getBairros()) {
+				
+				if (!map.containsKey(municipio.getId())) {
+					
+					map.put(key, new ArrayList<Long>());
+					map.get(key).add(bairro.getId());
+				}
+				else {
+					map.get(key).add(bairro.getId());
+				}
+			}
+		}
+		
+		return map;
+	}
+		
+	@ModelAttribute("districtsNameMappedById")
+	public HashMap<Long, String> districtsNameMappedById() {
+			
+		List<Bairro> allBairros = bairroService.getAll();
+		HashMap<Long, String> map = new HashMap<Long, String>();
+			
+		for (Bairro bairro : allBairros) {			
+			map.put(bairro.getId(), bairro.getName());
+		}
+			
+		return map;
+	}
 }
-

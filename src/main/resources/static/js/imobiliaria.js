@@ -45,7 +45,7 @@ $(function() {
 // Sorting the table on click in the fields
 var table = $('table');
     
-$('#id-header, #name-header, #state-header, #city-header, #district-header, #business-header, #category-header, #bedroom-header')
+$('#id-header, #name-header, #state-header, #city-header, #district-header, #business-header, #category-header, #bedroom-header, #address-header')
     .wrapInner('<span title="sort this column"/>')
     .each( function () {
         

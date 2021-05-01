@@ -55,7 +55,6 @@ public class BairroController {
 		
 		mv.setViewName(CADASTRO_VIEW);
 		mv.addObject("bairro", new Bairro());
-		mv.addObject("municipios", municipioService.getAll());
 		
 		return mv;
 	}
@@ -96,7 +95,7 @@ public class BairroController {
 		mv.addObject(bairro);
 		
 		return mv;
-	}
+	}	
 	
 	@DeleteMapping("{id}")
 	public ModelAndView delete(@PathVariable Long id, RedirectAttributes attributes) {
