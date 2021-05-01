@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.gft.imobiliaria.model.Estado;
 import com.gft.imobiliaria.model.Municipio;
 import com.gft.imobiliaria.repository.filter.MunicipioFilter;
 import com.gft.imobiliaria.service.EstadoService;
@@ -100,5 +101,10 @@ public class MunicipioController {
 		attributes.addFlashAttribute("message", "Municipio removido com sucesso");
 		
 		return mv;
+	}
+	
+	@ModelAttribute("estados")
+	public List<Estado> allEstados() {
+		return estadoService.getAll();
 	}
 }

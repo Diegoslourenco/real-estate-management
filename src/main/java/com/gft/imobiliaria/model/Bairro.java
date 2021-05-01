@@ -1,6 +1,4 @@
 package com.gft.imobiliaria.model;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -32,12 +30,12 @@ public class Bairro {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "city_id")
-	@NotNull
+	@NotNull(message = "Município deve ser selecionado")
 	private Municipio city;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "state_id")
-	@NotNull
+	@NotNull(message = "Estado deve ser selecionado")
 	private Estado state;
 
 	public long getId() {
