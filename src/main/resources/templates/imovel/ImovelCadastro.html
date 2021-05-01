@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{ImobiliariaLayout}">
+	
+<head>
+	<title>Cadastro de Imóvel</title>
+</head>
+
+
+<section layout:fragment="content">
+	<form class="form-horizontal" method="POST" action="/imoveis" th:object="${imovel}">
+	
+		<div th:replace="MensagemGeral"></div>
+		<div th:replace="MensagemErro"></div>		
+		
+		<div class="panel panel-default">
+			<div class="panel-heading">
+		  		<div class="clearfix">
+					<h1 class="panel-title gft-title-panel">Novo imóvel</h1>
+					<a class="btn btn-link gft-link-panel" href="/imoveis">Voltar para pesquisa</a>
+				</div>
+			</div>
+			
+  			<div class="panel-body">
+  				<input type="hidden" th:field="*{id}"/>
+  				
+  				<div class="form-group" th:classappend="${#fields.hasErrors('name')} ? 'has-error'">
+  					<label for="name" class="col-sm-2 control-label">Nome</label>
+  					<div class="col-sm-4">
+  						<input type="text" class="form-control" id="name" th:field="*{name}"
+  								placeholder="Nome do imóvel"/>
+  					</div>
+  				</div>
+  				
+				<div class="form-group" th:classappend="${#fields.hasErrors('bedroom')} ? 'has-error'">
+					<label for="bedroom" class="col-sm-2 control-label">Quartos</label>
+					<div class="col-sm-3">
+						<input class="form-control" type="number" id="bedroom" min="1" th:field="*{bedroom}"/>
+					</div>
+				</div>
+  				
+  				<div class="form-group" th:classappend="${#fields.hasErrors('business')} ? 'has-error'">
+					<label for="business" class="col-sm-2 control-label">Negócio</label>
+					<div class="col-sm-3">
+						<select id="business" class="form-control" name="business" th:field="*{business}">
+							<option th:value="0">Selecione um negócio</option>
+							<option th:each="negocio : ${negocios}"
+									th:value="${negocio.id}"
+									th:text="${negocio.name}">
+							</option>
+						</select>
+					</div>
+				</div>
+				
+				<div class="form-group" th:classappend="${#fields.hasErrors('category')} ? 'has-error'">
+					<label for="category" class="col-sm-2 control-label">Categoria</label>
+					<div class="col-sm-3">
+						<select id="category" class="form-control" name="category" th:field="*{category}">
+							<option th:if="${imovel.category == null}" th:value="0" th:text="'Selecione uma categoria'">
+							</option>
+							<option th:if="${imovel.category != null}" th:value="${imovel.category}" th:text="${imovel.category.name}"></option>
+							<option th:each="categoria : ${categorias}"
+									th:value="${categoria.id}"
+									th:text="${categoria.name}">
+							</option>
+						</select>
+					</div>
+				</div>	
+		
+  				<div class="form-group" th:classappend="${#fields.hasErrors('state')} ? 'has-error'">
+  					<label for="state" class="col-sm-2 control-label">Estado</label>
+  					<div class="col-sm-3">
+  						<select id="state-imovel" class="form-control" name="state-imovel" th:field="*{state}">
+  							<option th:value="0">Selecione um estado</option>
+  							<option th:each="estado : ${estados}"
+  									th:value="${estado.id}"
+  									th:text="${estado.name}">
+  							</option>
+  						</select>	
+  					</div>		
+  				</div>	  		
+  				
+  				<div class="form-group" th:classappend="${#fields.hasErrors('city')} ? 'has-error'">
+  					<label for="city" class="col-sm-2 control-label">Município</label>
+  					<div class="col-sm-3">
+  						<select id="city-imovel" class="form-control" name="city-imovel" th:field="*{city}">
+  							<option th:if="${imovel.city == null}" th:value="0" th:text="'Selecione um estado'">
+  							</option>
+  							<option th:each="municipio : ${imovel.state.municipios}"
+  									th:value="${municipio.id}" th:text="${municipio.name}">
+  							</option>
+  						</select>
+  					</div>
+  				</div>
+  				
+  				<div class="form-group" th:classappend="${#fields.hasErrors('district')} ? 'has-error'">
+  					<label for="district" class="col-sm-2 control-label">Bairro</label>
+  					<div class="col-sm-3">
+  						<select id="district-imovel" class="form-control" name="district-imovel" th:field="*{district}">
+  							<option th:if="${imovel.district == null}" th:value="0" th:text="'Selecione um município'">
+  							</option>
+  							<option th:each="bairro : ${imovel.state.bairros}"
+  									th:value="${bairro.id}" th:text="${bairro.name}">
+  							</option>
+  						</select>
+  					</div>
+  				</div>
+  				
+  				<div class="form-group" th:classappend="${#fields.hasErrors('address')} ? 'has-error'">
+  					<label for="address" class="col-sm-2 control-label">Endereço</label>
+  					<div class="col-sm-4">
+  						<input type="text" class="form-control" id="name" th:field="*{address}"
+  								placeholder="Endereço do imóvel"/>
+  					</div>
+  				</div>		
+
+  				<div class="form-group">
+  					<div class="col-sm-offset-2 col-sm-10">
+  						<button type="submit" class="btn btn-primary">Salvar</button>
+  					</div>
+  				</div>
+  			</div>
+		</div>
+	</form>
+	
+	<script th:inline="javascript">
+    	var cityMappedByState = /*[[${citiesMappedByState}]]*/ 'citiesMappedByState';
+    	var cities = /*[[${citiesNameMappedById}]]*/ 'citiesNameMappedById';
+    	var districtMappedByCity = /*[[${districtsMappedByCity}]]*/ 'districtsMappedByCity';
+    	var districts = /*[[${districtsNameMappedById}]]*/ 'districtsNameMappedById';
+	</script>		
+</section>	
+</html>

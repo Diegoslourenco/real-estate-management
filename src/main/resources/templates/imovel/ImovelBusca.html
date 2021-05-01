@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{ImobiliariaLayout}">
+	
+<head>
+	<title>Imóveis</title>
+</head>
+
+<section layout:fragment="content">
+	<div th:replace="MensagemGeral"></div>	
+
+	<div class="panel panel-default">
+	  	<div class="panel-heading">
+	  		<div class="clearfix">
+				<h1 class="panel-title gft-title-panel">Imóveis</h1>
+				<a class="btn btn-link gft-link-panel" href="/imoveis/novo">Novo imóvel</a>
+			</div>
+		</div>
+			
+		<div class="panel-body">
+		
+			<div class="row" th:object="${filter}">
+					
+				<div class="col-lg-8">	
+					<form method="GET" class="form-horizontal" action="/imoveis">							
+						<div class="form-group">		
+							<div class="col-sm-6">
+								<div class="input-group">
+									<input class="form-control" placeholder="Qual imóvel você está procurando?"
+									autofocus="autofocus" th:field="*{text}">
+									<span class="input-group-btn">
+										<button type="submit" class="btn btn-default">
+											<i class="glyphicon glyphicon-search"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+							
+			</div>
+			
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped align-middle">
+					<thead>
+						<tr>
+							<th id="id-header" class="text-center col-md-1">#</th>
+							<th id="name-header" class="text-center col-md-2">Nome</th>
+							<th id="bedroom-header" class="text-center col-md-1">Quartos</th>
+							<th id="business-header" class="text-center col-md-2">Negócio</th>
+							<th id="category-header" class="text-center col-md-2">Categoria</th>
+							<th id="address-header" class="text-center col-md-2">Endereço</th>
+							<th id="district-header" class="text-center col-md-2">Bairro</th>
+							<th id="city-header" class="text-center col-md-2">Município</th>
+							<th id="state-header" class="text-center col-md-2">Estado</th>				
+							<th class="col-md-2 text-center">Opções</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="imovel, count : ${imoveis}">
+							<td class="text-center" th:text="${count.index+1}"></td>
+							<td class="text-center" th:text="${imovel.name}"></td>
+							<td class="text-center" th:text="${imovel.bedroom}"></td>
+							<td class="text-center" th:text="${imovel.business.name}"></td>
+							<td class="text-center" th:text="${imovel.category.name}"></td>
+							<td class="text-center" th:text="${imovel.address}"></td>
+							<td class="text-center" th:text="${imovel.district.name}"></td>			
+							<td class="text-center" th:text="${imovel.city.name}"></td>
+							<td class="text-center" th:text="${imovel.state.uf}"></td>
+							<td class="text-center">
+								<a class="btn btn-link btn-xs" th:href="@{/imoveis/{id}(id=${imovel.id})}"
+										title="Editar" rel="tooltip" data-placement="top">
+									<span class="glyphicon glyphicon-pencil"></span>
+								</a>
+								<a class="btn btn-link btn-xs" data-toggle="modal" data-target="#confirmarExclusaoModal"
+									th:attr="data-id=${imovel.id}, data-description=${imovel.name},
+											data-url='imoveis'"
+									title="Excluir" rel="tooltip" data-placement="top">
+									<span class="glyphicon glyphicon-remove"></span>
+								</a>
+							</td>
+						<tr>
+							<td colspan="10" th:if="${#lists.isEmpty(imoveis)}">Nenhum imóvel foi encontrado</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+		<div th:replace="ConfirmarExclusao"></div>
+		
+	</div>
+</section>
+</html>

@@ -9,5 +9,4 @@ import com.gft.imobiliaria.model.Estado;
 public interface EstadosRepository extends JpaRepository<Estado, Long> {
 	
 	public List<Estado> findByNameContaining(String name);
-
 }

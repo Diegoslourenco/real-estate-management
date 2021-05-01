@@ -31,4 +31,8 @@ public class BairroService {
 	public void delete(Long id) {
 		bairros.deleteById(id);
 	}
+
+	public List<Bairro> getAll() {
+		return bairros.findAll();
+	}
 }

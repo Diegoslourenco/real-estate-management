@@ -31,4 +31,8 @@ public class CategoriaService {
 	public void delete(Long id) {
 		categorias.deleteById(id);
 	}
+
+	public List<Categoria> getAll() {
+		return categorias.findAll();
+	}
 }

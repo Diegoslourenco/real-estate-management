@@ -40,6 +40,9 @@ public class Municipio {
 	
 	@OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
 	private List<Bairro> bairros;
+	
+	@OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
+	private List<Imovel> imoveis;
 
 	public long getId() {
 		return id;
@@ -71,6 +74,14 @@ public class Municipio {
 
 	public void setBairros(List<Bairro> bairros) {
 		this.bairros = bairros;
+	}
+
+	public List<Imovel> getImoveis() {
+		return imoveis;
+	}
+
+	public void setImoveis(List<Imovel> imoveis) {
+		this.imoveis = imoveis;
 	}
 
 	@Override
