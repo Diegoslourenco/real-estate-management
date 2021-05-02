@@ -3,6 +3,7 @@ package com.gft.imobiliaria.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -114,10 +115,10 @@ public class BairroController {
 	}
 	
 	@ModelAttribute("citiesMappedByState")
-	public HashMap<Long, ArrayList<Long>> citiesMappedByState() {
+	public Map<Long, ArrayList<Long>> citiesMappedByState() {
 		
 		List<Estado> allEstados = estadoService.getAll();
-		HashMap<Long, ArrayList<Long>> map = new HashMap<Long, ArrayList<Long>>();			
+		Map<Long, ArrayList<Long>> map = new HashMap<Long, ArrayList<Long>>();			
 		
 		for (Estado estado : allEstados) {
 			
@@ -145,10 +146,10 @@ public class BairroController {
 	}
 		
 	@ModelAttribute("citiesNameMappedById")
-	public HashMap<Long, String> citiesNameMappedById() {
+	public Map<Long, String> citiesNameMappedById() {
 			
 		List<Municipio> allMunicipios = municipioService.getAll();
-		HashMap<Long, String> map = new HashMap<Long, String>();
+		Map<Long, String> map = new HashMap<Long, String>();
 			
 		for (Municipio municipio : allMunicipios) {			
 			map.put(municipio.getId(), municipio.getName());

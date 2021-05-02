@@ -25,7 +25,17 @@
 					
 				<div class="col-lg-8">	
 					<form method="GET" class="form-horizontal" action="/imoveis">							
-						<div class="form-group">		
+						<div class="form-group">						
+					
+							<div class="col-sm-2">
+		  						<select class="form-control" name="filter" th:field="*{field}">
+		  							<option th:each="field : ${allFieldsImovelFilter}"
+		  									th:value="${field}"
+		  									th:text="${field.description}">
+		  							</option>
+		  						</select>
+		  					</div>
+		  							
 							<div class="col-sm-6">
 								<div class="input-group">
 									<input class="form-control" placeholder="Qual imóvel você está procurando?"
