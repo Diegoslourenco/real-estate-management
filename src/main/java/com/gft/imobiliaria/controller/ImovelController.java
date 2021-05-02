@@ -1,8 +1,10 @@
 package com.gft.imobiliaria.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,7 @@ import com.gft.imobiliaria.model.Estado;
 import com.gft.imobiliaria.model.Imovel;
 import com.gft.imobiliaria.model.Municipio;
 import com.gft.imobiliaria.model.Negocio;
+import com.gft.imobiliaria.repository.filter.FieldsImovelFilter;
 import com.gft.imobiliaria.repository.filter.ImovelFilter;
 import com.gft.imobiliaria.service.MunicipioService;
 import com.gft.imobiliaria.service.NegocioService;
@@ -129,11 +132,16 @@ public class ImovelController {
 		return estadoService.getAll();
 	}
 	
+	@ModelAttribute("allFieldsImovelFilter")
+	public List<FieldsImovelFilter> allFieldsImovelFilter() {
+		return Arrays.asList(FieldsImovelFilter.values());
+	}
+	
 	@ModelAttribute("citiesMappedByState")
-	public HashMap<Long, ArrayList<Long>> citiesMappedByState() {
+	public Map<Long, ArrayList<Long>> citiesMappedByState() {
 		
 		List<Estado> allEstados = estadoService.getAll();
-		HashMap<Long, ArrayList<Long>> map = new HashMap<Long, ArrayList<Long>>();			
+		Map<Long, ArrayList<Long>> map = new HashMap<Long, ArrayList<Long>>();			
 		
 		for (Estado estado : allEstados) {
 			
@@ -161,10 +169,10 @@ public class ImovelController {
 	}
 		
 	@ModelAttribute("citiesNameMappedById")
-	public HashMap<Long, String> citiesNameMappedById() {
+	public Map<Long, String> citiesNameMappedById() {
 			
 		List<Municipio> allMunicipios = municipioService.getAll();
-		HashMap<Long, String> map = new HashMap<Long, String>();
+		Map<Long, String> map = new HashMap<Long, String>();
 			
 		for (Municipio municipio : allMunicipios) {			
 			map.put(municipio.getId(), municipio.getName());
@@ -174,10 +182,10 @@ public class ImovelController {
 	}
 	
 	@ModelAttribute("districtsMappedByCity")
-	public HashMap<Long, ArrayList<Long>> districtsMappedByCity() {
+	public Map<Long, ArrayList<Long>> districtsMappedByCity() {
 		
 		List<Municipio> allMunicipios = municipioService.getAll();
-		HashMap<Long, ArrayList<Long>> map = new HashMap<Long, ArrayList<Long>>();			
+		Map<Long, ArrayList<Long>> map = new HashMap<Long, ArrayList<Long>>();			
 		
 		for (Municipio municipio : allMunicipios) {
 			
@@ -205,10 +213,10 @@ public class ImovelController {
 	}
 		
 	@ModelAttribute("districtsNameMappedById")
-	public HashMap<Long, String> districtsNameMappedById() {
+	public Map<Long, String> districtsNameMappedById() {
 			
 		List<Bairro> allBairros = bairroService.getAll();
-		HashMap<Long, String> map = new HashMap<Long, String>();
+		Map<Long, String> map = new HashMap<Long, String>();
 			
 		for (Bairro bairro : allBairros) {			
 			map.put(bairro.getId(), bairro.getName());

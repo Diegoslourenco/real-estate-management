@@ -48,7 +48,6 @@ public class MunicipioController {
 		
 		mv.setViewName(CADASTRO_VIEW);
 		mv.addObject("municipio", new Municipio());
-		mv.addObject("estados", estadoService.getAll());
 		
 		return mv;
 	}
@@ -87,7 +86,6 @@ public class MunicipioController {
 		
 		ModelAndView mv = new ModelAndView(CADASTRO_VIEW);
 		mv.addObject(municipio);
-		mv.addObject("estados", estadoService.getAll());
 		
 		return mv;
 	}
