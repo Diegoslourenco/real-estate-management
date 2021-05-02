@@ -3,7 +3,7 @@ package com.gft.imobiliaria.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;;
+import org.springframework.stereotype.Service;
 
 import com.gft.imobiliaria.model.Imovel;
 import com.gft.imobiliaria.repository.ImoveisRepository;
@@ -27,7 +27,7 @@ public class ImovelService {
 		
 		String filter = imovelFilter.getText();
 		
-		if (filter == null) {
+		if (filter.isEmpty()) {
 			return imoveis.findAll();
 		}
 		
@@ -42,16 +42,15 @@ public class ImovelService {
 			
 			try {				
 				filterInt = Integer.parseInt(filter);
-				
-				if (filterInt < 0) {
-					filterInt = 0;
-				}
 			}
 			catch (NumberFormatException e) {
 				filterInt = 0;
 			}
 			
 			return imoveis.findByBedroomOrderByBedroomAsc(filterInt);		
+		}
+		else if (fieldSelected == 4) {
+			return imoveis.findByAddressContainingOrderByAddressAsc(filter);
 		}
 		
 		return imoveis.findAll();

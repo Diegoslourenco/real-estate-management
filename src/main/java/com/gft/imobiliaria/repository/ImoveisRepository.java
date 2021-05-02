@@ -11,4 +11,6 @@ public interface ImoveisRepository extends JpaRepository<Imovel, Long> {
 	public List<Imovel> findByNameContainingOrderByNameAsc(String name);
 
 	public List<Imovel> findByBedroomOrderByBedroomAsc(int bedroom);
+
+	public List<Imovel> findByAddressContainingOrderByAddressAsc(String address);
 }
