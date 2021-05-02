@@ -87,6 +87,13 @@ $('#state-imovel').change(
 			    		// Show all the district options for the first city by a state for the user in the dropdown Bairro	    		
 			    		var firstCity = cityMappedByState[state][0];
 			    		
+			    		if (districtMappedByCity[firstCity].length === 0) {
+			    			$('#district-imovel').append($('<option>', {
+					    		value: 0,
+					    		text: 'Cadastre um bairro'
+					    	}));
+			    		}			    		
+			    		
 			    		for (var i = 0; i < districtMappedByCity[firstCity].length; i++) {
 			    			
 				    		$('#district-imovel').append($('<option>', {

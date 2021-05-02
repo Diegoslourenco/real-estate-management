@@ -30,7 +30,7 @@ public class Municipio {
 	private long id;
 	
 	@NotBlank(message = "Nome é obrigatório")
-	@Size(max = 20, message = "Estado não pode conter mais de 20 caracteres")
+	@Size(max = 20, message = "Município não pode conter mais de 20 caracteres")
 	private String name;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -106,3 +106,4 @@ public class Municipio {
 		return true;
 	}
 }
+
