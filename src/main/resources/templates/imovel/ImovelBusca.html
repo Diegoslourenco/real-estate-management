@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	layout:decorate="~{ImobiliariaLayout}">
 	
 <head>
@@ -9,13 +10,13 @@
 </head>
 
 <section layout:fragment="content">
-	<div th:replace="MensagemGeral"></div>	
+	<div th:replace="MensagemGeral"></div>
 
 	<div class="panel panel-default">
 	  	<div class="panel-heading">
 	  		<div class="clearfix">
 				<h1 class="panel-title gft-title-panel">Imóveis</h1>
-				<a class="btn btn-link gft-link-panel" href="/imoveis/novo">Novo imóvel</a>
+				<a class="btn btn-link gft-link-panel" href="/imoveis/novo" sec:authorize="hasRole('admin')">Novo imóvel</a>
 			</div>
 		</div>
 			
@@ -24,7 +25,7 @@
 			<div class="row" th:object="${filter}">
 					
 				<div class="col-lg-8">	
-					<form method="GET" class="form-horizontal" action="/imoveis">							
+					<form method="GET" class="form-horizontal" action="/imoveis/pesquisar">							
 						<div class="form-group">						
 					
 							<div class="col-sm-2">
@@ -66,7 +67,7 @@
 							<th id="district-header" class="text-center col-md-2">Bairro</th>
 							<th id="city-header" class="text-center col-md-2">Município</th>
 							<th id="state-header" class="text-center col-md-2">Estado</th>				
-							<th class="col-md-2 text-center">Opções</th>
+							<th class="col-md-2 text-center" sec:authorize="hasRole('admin')">Opções</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -80,7 +81,7 @@
 							<td class="text-center" th:text="${imovel.district.name}"></td>			
 							<td class="text-center" th:text="${imovel.city.name}"></td>
 							<td class="text-center" th:text="${imovel.state.uf}"></td>
-							<td class="text-center">
+							<td class="text-center" sec:authorize="hasRole('admin')">
 								<a class="btn btn-link btn-xs" th:href="@{/imoveis/{id}(id=${imovel.id})}"
 										title="Editar" rel="tooltip" data-placement="top">
 									<span class="glyphicon glyphicon-pencil"></span>

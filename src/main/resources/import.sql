@@ -29,7 +29,26 @@ INSERT INTO bairros (`name`, `city_id`, `state_id`) VALUES ('Santa Rosália', 4,
 INSERT INTO bairros (`name`, `city_id`, `state_id`) VALUES ('Vila Hortência', 4, 4)
 
 # imoveis
-
 INSERT INTO imoveis (`name`, `bedroom`, `address`, `business_id`, `category_id`, `state_id`, `city_id`, `district_id` ) VALUES ('Vista pro mar', 3, 'Avenida Brasil, 367', 1, 1, 1, 1, 1)
 INSERT INTO imoveis (`name`, `bedroom`, `address`, `business_id`, `category_id`, `state_id`, `city_id`, `district_id` ) VALUES ('Casa em bairro residencial', 3, 'Rua Paulo dos Santos, 25', 2, 2, 4, 4, 4)
 INSERT INTO imoveis (`name`, `bedroom`, `address`, `business_id`, `category_id`, `state_id`, `city_id`, `district_id` ) VALUES ('Amplo espaço externo', 4, 'Rua Pedro Sampaio, 13', 2, 3, 2, 2, 2)
+
+# usuarios
+INSERT INTO usuarios (`name`, `email`, `username`, `password`, `active`, `permission`) VALUES ('admin', 'admin@admin.com', 'admin', '$2a$10$/ONq4EasjboX1PXJ7qAEHu6X3ndQ1qBb/G/B3wcKAZdHxhx.3IDWe', true, "admin")
+INSERT INTO usuarios (`name`, `email`, `username`, `password`, `active`, `permission`) VALUES ('Diego Lourenço', 'diego.lourenco@gft.com', 'dodn', '$2a$10$/ONq4EasjboX1PXJ7qAEHu6X3ndQ1qBb/G/B3wcKAZdHxhx.3IDWe', true, "user")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

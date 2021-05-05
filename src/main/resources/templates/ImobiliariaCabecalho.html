@@ -1,31 +1,45 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 	
 <nav class="navbar navbar-inverse navbar-static-top">
+
 	<div class="container-fluid gft-container-fluid-logo">
 		<div class="navbar-header">
 			<a class="navbar-brand" href="/">
 				<img alt="Gft" src="/images/logo-gft.jpg"/>
-				<span class="gft-title-text">Imobiliaria</span>	
+				<span class="gft-title-text">Imobiliária</span>	
 			</a>
 		</div>
 	</div>
 	
 	<div class="gft-container-links">
 		<div class="container">
-	    	<ul class="nav navbar-nav navbar-right gft-link-text">
+				 
+	    	<ul class="nav navbar-nav navbar-right gft-link-text"
+	    		sec:authorize="hasRole('admin')">
+	    		<li><a href="/imoveis">Imóveis</a></li>
 	      		<li><a href="/categorias">Categorias</a></li>
 	      		<li><a href="/negocios">Negócios</a></li>
 	      		<li><a href="/estados">Estados</a></li>
 	      		<li><a href="/municipios">Municípios</a></li>
 	      		<li><a href="/bairros">Bairros</a></li>
-	      		<li><a href="/login">Logout</a></li>
+	      		<li><a th:href="@{/logout}">Logout</a></li>
 	    	</ul>
-	    </div>
-    </div>
+	    	
+	    	<ul class="nav navbar-nav navbar-right gft-link-text"
+	    		sec:authorize="hasRole('user')">
+	    		<li><a href="/">Home</a></li>
+	    		<li><a href="/imoveis/pesquisar">Imóveis</a></li>	
+	      		<li><a th:href="@{/logout}">Logout</a></li>
+	      	</ul>
 
+	    	
+	    	
+	    </div>
+    </div> 
     
 </nav>
 </html>

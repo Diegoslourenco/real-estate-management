@@ -97,6 +97,15 @@ public class ImovelController {
 		return mv;
 	}
 	
+	@GetMapping("/pesquisar")
+	public ModelAndView searchImoveis(@ModelAttribute("filter") ImovelFilter imovelFilter) {	
+		
+		ModelAndView mv = new ModelAndView(BUSCA_VIEW);
+		mv.addObject("imoveis", imovelService.get(imovelFilter));
+
+		return mv;
+	}
+	
 	@GetMapping("{id}")
 	public ModelAndView update(@PathVariable("id") Imovel imovel) {
 		

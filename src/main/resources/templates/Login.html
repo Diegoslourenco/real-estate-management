@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{ImobiliariaLayout}">
+	
+<head>
+	<title>GFT Imobiliária</title>
+</head>
+
+<section layout:fragment="content">
+	<div th:replace="MensagemGeral"></div>	
+
+	<div class="row">
+		<div class="col-xs-10 col-xs-offset-2 col-sm-4 col-sm-offset-3 col-lg-4 col-lg-offset-4">
+			<div th:if="${param.error}">
+				<div class="alert alert-danger">Usuário e/ou senha inválidos</div>
+			</div>
+
+			<div th:if="${param.logout}">
+				<div class="alert alert-info">Até breve!</div>
+			</div>
+
+			<div class="panel panel-info">
+				<div class="panel-heading">
+			    	<h3 class="panel-title">Entre</h3>
+			  	</div>
+				<div class="panel-body">
+					<form th:action="@{/login}" method="POST">
+						<div class="form-group">
+							<input name="username" class="form-control" placeholder="Usuário"/>
+						</div>
+
+						<div class="form-group">
+							<input type="password" name="password" class="form-control" placeholder="Senha"/>
+						</div>
+
+						<div class="form-group">
+							<button class="btn btn-primary btn-block">Entrar</button>
+						</div>
+
+						<div class="form-group">
+							<input type="checkbox" id="remember-me" name="remember-me" />
+							<label for="remember-me">Lembrar?</label>
+						</div>
+						
+						<div class="form-group">
+							<label for="">Novo usuário? <a href="/registrar"> Registre-se</a></label>
+						</div>
+						
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+		
+</section>
+</html>
