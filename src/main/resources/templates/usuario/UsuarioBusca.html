@@ -5,7 +5,7 @@
 	layout:decorate="~{ImobiliariaLayout}">
 	
 <head>
-	<title>Negócios</title>
+	<title>Usuários</title>
 </head>
 
 <section layout:fragment="content">
@@ -14,8 +14,8 @@
 	<div class="panel panel-default">
 	  	<div class="panel-heading">
 	  		<div class="clearfix">
-				<h1 class="panel-title gft-title-panel">Negócios</h1>
-				<a class="btn btn-link gft-link-panel" href="/negocios/novo">Novo negócio</a>
+				<h1 class="panel-title gft-title-panel">Usuários</h1>
+				<a class="btn btn-link gft-link-panel" href="/usuarios/novo">Novo usuário</a>
 			</div>
 		</div>
 			
@@ -24,11 +24,11 @@
 			<div class="row" th:object="${filter}">
 					
 				<div class="col-lg-8">	
-					<form method="GET" class="form-horizontal" action="/negocios">							
+					<form method="GET" class="form-horizontal" action="/usuarios">							
 						<div class="form-group">		
 							<div class="col-sm-6">
 								<div class="input-group">
-									<input class="form-control" placeholder="Que tipo de negócio você está procurando?"
+									<input class="form-control" placeholder="Qual usuário você está procurando?"
 									autofocus="autofocus" th:field="*{text}">
 									<span class="input-group-btn">
 										<button type="submit" class="btn btn-default">
@@ -48,28 +48,30 @@
 					<thead>
 						<tr>
 							<th id="id-header" class="text-center col-md-1">#</th>
-							<th id="name-header" class="text-center col-md-2">Nome</th>				
-							<th class="text-center col-md-2">Opções</th>
+							<th id="name-header" class="text-center col-md-2">Nome</th>
+							<th id="city-header" class="text-center col-md-2">email</th>			
+							<th class="col-md-2 text-center">Opções</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="negocio, count : ${negocios}">
+						<tr th:each="usuario, count : ${usuarios}">
 							<td class="text-center" th:text="${count.index+1}"></td>
-							<td th:text="${negocio.name}"></td>
-							<td class="text-center">
-								<a class="btn btn-link btn-xs" th:href="@{/negocios/{id}(id=${negocio.id})}"
-										title="Editar" rel="tooltip" data-placement="top">
-									<span class="glyphicon glyphicon-pencil"></span>
+							<td class="text-center" th:text="${usuario.name}"></td>
+							<td class="text-center" th:text="${usuario.email}"></td>
+							<td class="text-center" th:if="${usuario.name != 'admin'}">
+								<a class="btn btn-link btn-xs" th:href="@{/usuarios/{id}(id=${usuario.id})}"
+										title="Enviar email" rel="tooltip" data-placement="top">
+									<span class="glyphicon glyphicon-envelope"></span>
 								</a>
 								<a class="btn btn-link btn-xs" data-toggle="modal" data-target="#confirmarExclusaoModal"
-									th:attr="data-id=${negocio.id}, data-description=${negocio.name},
-											data-url='negocios'"
+									th:attr="data-id=${usuario.id}, data-description=${usuario.name},
+											data-url='usuarios'"
 									title="Excluir" rel="tooltip" data-placement="top">
 									<span class="glyphicon glyphicon-remove"></span>
 								</a>
 							</td>
 						<tr>
-							<td colspan="10" th:if="${#lists.isEmpty(negocios)}">Nenhum negócio foi encontrado</td>
+							<td colspan="10" th:if="${#lists.isEmpty(usuarios)}">Nenhum usuário foi encontrado</td>
 						</tr>
 					</tbody>
 				</table>

@@ -47,7 +47,7 @@ public class HomeController {
 		}
 		
 		if (usuarioService.save(usuario)) {
-			attributes.addFlashAttribute("message", "Usuário Cadastrado com sucesso");
+			attributes.addFlashAttribute("message", "Usuário cadastrado com sucesso");
 			
 			return "redirect:/registrar";		
 		}

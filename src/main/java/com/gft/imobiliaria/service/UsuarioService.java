@@ -3,17 +3,36 @@ package com.gft.imobiliaria.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.gft.imobiliaria.model.Usuario;
 import com.gft.imobiliaria.repository.UsuariosRepository;
+import com.gft.imobiliaria.repository.filter.UsuarioFilter;
 
 @Service
 public class UsuarioService {
 	
 	@Autowired
 	private UsuariosRepository usuarios;
+	
+	@Autowired
+	private JavaMailSender mailSender;
+	
+	public List<Usuario> get(UsuarioFilter usuarioFilter) {
+		
+		if (usuarioFilter.getText() == null) {
+			return usuarios.findAll();
+		}
+		
+		return usuarios.findByNameContaining(usuarioFilter.getText());
+	}
+	
+	public void delete(Long id) {
+		usuarios.deleteById(id);	
+	}
 	
 	public boolean save(Usuario usuario) {
 		
@@ -54,5 +73,20 @@ public class UsuarioService {
 		}
 		
 		return false;	
+	}
+	
+	public void sendEmail(Usuario usuario) {
+		
+		SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+		
+		simpleMailMessage.setFrom("imobgft@gmail.com");
+		simpleMailMessage.setTo(usuario.getEmail());
+		simpleMailMessage.setSubject("Acesse nosso site para ver as novidades!");
+		simpleMailMessage.setText("Olá, " + usuario.getName() + "!\n"
+									+"\nSeguem novidades nos imóveis!\n"
+									+ "\nAcesse nosso site!\n"
+									+ "\nEquipe Imobiliária GFT");
+		
+		mailSender.send(simpleMailMessage);			
 	}
 }

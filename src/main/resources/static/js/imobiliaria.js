@@ -38,8 +38,6 @@ $('#confirmarExclusaoModal').on('show.bs.modal', function(event) {
 // Everytime the page refreshes it looks for the class and calls the function
 $(function() {
 	$('[rel="tooltip"]').tooltip();
-	
-	$('.js-currency').maskMoney({decimal: ',', thousands: '.'});
 });
 
 // Sorting the table on click in the fields

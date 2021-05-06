@@ -81,10 +81,9 @@ public class BairroController {
 	
 	@GetMapping
 	public ModelAndView search(@ModelAttribute("filter") BairroFilter bairroFilter) {	
-		List<Bairro> allBairros = bairroService.get(bairroFilter);
 		
 		ModelAndView mv = new ModelAndView(BUSCA_VIEW);
-		mv.addObject("bairros", allBairros);
+		mv.addObject("bairros", bairroService.get(bairroFilter));
 
 		return mv;
 	}
