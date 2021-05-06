@@ -83,7 +83,7 @@ public class UsuarioService {
 		simpleMailMessage.setTo(usuario.getEmail());
 		simpleMailMessage.setSubject("Acesse nosso site para ver as novidades!");
 		simpleMailMessage.setText("Olá, " + usuario.getName() + "!\n"
-									+"\nSeguem novidades nos imóveis!\n"
+									+"\nVenha ver as novidades nos imóveis!\n"
 									+ "\nAcesse nosso site!\n"
 									+ "\nEquipe Imobiliária GFT");
 		
