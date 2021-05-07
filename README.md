@@ -1,6 +1,6 @@
 # Real Estate Website
 
-Application built to organize a real estate websitee in order to practice and apply the concepts of a CRUD using Spring Boot and the MVC architectural pattern.
+Application built to organize a real estate website in order to practice and apply the concepts of a CRUD using Spring Boot and the MVC architectural pattern.
 
 ## Dependencies: 
 
