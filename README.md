@@ -8,9 +8,7 @@ Application built to organize a real estate websitee in order to practice and ap
 - [Thymeleaf 3.0.11](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#expression-utility-objects)
 - MySQL
 - [Bootstrap 3.3.7](https://blog.getbootstrap.com/2016/07/25/bootstrap-3-3-7-released/)
-- [bootstrap-datepicker](https://github.com/uxsolutions/bootstrap-datepicker)
 - [jQuery 3.6.0](https://jquery.com/download/)
-- jQuery [maskMoney](https://github.com/plentz/jquery-maskmoney)
 - jQuery [sortElements](https://github.com/padolsey-archive/jquery.fn/tree/master/sortElements)
 
 ## Application Architecture
