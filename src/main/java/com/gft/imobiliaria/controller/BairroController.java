@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
@@ -28,6 +29,7 @@ import com.gft.imobiliaria.service.EstadoService;
 
 @Controller
 @RequestMapping("/bairros")
+@PreAuthorize("hasRole('admin')")
 public class BairroController {
 	
 	private static final String CADASTRO_VIEW = "bairro/BairroCadastro";
@@ -81,10 +83,9 @@ public class BairroController {
 	
 	@GetMapping
 	public ModelAndView search(@ModelAttribute("filter") BairroFilter bairroFilter) {	
-		List<Bairro> allBairros = bairroService.get(bairroFilter);
 		
 		ModelAndView mv = new ModelAndView(BUSCA_VIEW);
-		mv.addObject("bairros", allBairros);
+		mv.addObject("bairros", bairroService.get(bairroFilter));
 
 		return mv;
 	}

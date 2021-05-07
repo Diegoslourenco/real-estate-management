@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	layout:decorate="~{ImobiliariaLayout}">
+	
+<head>
+	<title>GFT Imobiliária</title>
+</head>
+
+<section layout:fragment="content">
+	<div th:replace="MensagemGeral"></div>	
+	
+		<div class="panel panel-default">
+			<div class="panel-heading">
+	  			<div class="clearfix">
+					<h1><span th:text="${#authentication.principal.name}"></span>, bem vindo a GFT Imobiliária!</h1>
+				</div>
+			</div>
+		
+		
+			<div class="panel-body">
+					<div>
+						<p>
+							Use o menu superior para navegar.
+						</p>
+					</div>
+			</div>
+		</div>		
+</section>
+</html>

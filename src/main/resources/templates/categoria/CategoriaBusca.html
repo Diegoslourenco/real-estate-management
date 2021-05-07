@@ -2,13 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	layout:decorate="~{ImobiliariaLayout}">
 	
 <head>
 	<title>Categorias</title>
 </head>
 
-<section layout:fragment="content">
+<section layout:fragment="content" sec:authorize="hasRole('admin')">
 	<div th:replace="MensagemGeral"></div>	
 
 	<div class="panel panel-default">
@@ -49,7 +50,7 @@
 						<tr>
 							<th id="id-header" class="text-center col-md-1">#</th>
 							<th id="name-header" class="text-center col-md-2">Nome</th>				
-							<th class="col-md-2">Opções</th>
+							<th class="text-center col-md-2">Opções</th>
 						</tr>
 					</thead>
 					<tbody>
