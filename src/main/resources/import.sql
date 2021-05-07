@@ -37,6 +37,13 @@ INSERT INTO imoveis (`name`, `bedroom`, `address`, `business_id`, `category_id`,
 INSERT INTO usuarios (`name`, `email`, `username`, `password`, `active`, `permission`) VALUES ('admin', 'admin@admin.com', 'admin', '$2a$10$/ONq4EasjboX1PXJ7qAEHu6X3ndQ1qBb/G/B3wcKAZdHxhx.3IDWe', true, "admin")
 INSERT INTO usuarios (`name`, `email`, `username`, `password`, `active`, `permission`) VALUES ('Diego Lourenço', 'diego.lourenco@gft.com', 'dodn', '$2a$10$/ONq4EasjboX1PXJ7qAEHu6X3ndQ1qBb/G/B3wcKAZdHxhx.3IDWe', true, "user")
 
+# imagens
+INSERT INTO imagens (`name`, `real_estate_id`, `location` ) VALUES ('casa-praia.jpg', 1, '/images/casa-praia1.jpg')
+INSERT INTO imagens (`name`, `real_estate_id`, `location` ) VALUES ('casa-praia2.jpg', 1, '/images/casa-praia2.jpg')
+INSERT INTO imagens (`name`, `real_estate_id`, `location` ) VALUES ('casa-praia.jpg', 2, '/images/casa-residencial1.jpg')
+INSERT INTO imagens (`name`, `real_estate_id`, `location` ) VALUES ('casa-praia2.jpg', 2, '/images/casa-residencial2.jpg')
+INSERT INTO imagens (`name`, `real_estate_id`, `location` ) VALUES ('casa-praia.jpg', 3, '/images/chacara1.jpg')
+INSERT INTO imagens (`name`, `real_estate_id`, `location` ) VALUES ('casa-praia2.jpg', 3, '/images/chacara2.jpg')
 
 
 

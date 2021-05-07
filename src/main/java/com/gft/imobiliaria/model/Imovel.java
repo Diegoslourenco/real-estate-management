@@ -1,5 +1,8 @@
 package com.gft.imobiliaria.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -7,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -62,6 +66,9 @@ public class Imovel {
 	@JoinColumn(name = "state_id")
 	@NotNull(message = "Estado deve ser selecionado")
 	private Estado state;
+	
+	@OneToMany(mappedBy = "realEstate", cascade = CascadeType.ALL)
+	private List<Imagem> imagens;
 
 	public long getId() {
 		return id;
@@ -133,6 +140,14 @@ public class Imovel {
 
 	public void setState(Estado state) {
 		this.state = state;
+	}
+
+	public List<Imagem> getImagens() {
+		return imagens;
+	}
+
+	public void setImagens(List<Imagem> imagens) {
+		this.imagens = imagens;
 	}
 
 	@Override

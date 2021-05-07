@@ -59,20 +59,26 @@
 					<thead>
 						<tr>
 							<th id="id-header" class="text-center col-md-1">#</th>
+							<th id="id-foto" class="text-center col-md-4">Fotos</th>
 							<th id="name-header" class="text-center col-md-2">Nome</th>
 							<th id="bedroom-header" class="text-center col-md-1">Quartos</th>
-							<th id="business-header" class="text-center col-md-2">Negócio</th>
-							<th id="category-header" class="text-center col-md-2">Categoria</th>
+							<th id="business-header" class="text-center col-md-1">Negócio</th>
+							<th id="category-header" class="text-center col-md-1">Categoria</th>
 							<th id="address-header" class="text-center col-md-2">Endereço</th>
-							<th id="district-header" class="text-center col-md-2">Bairro</th>
+							<th id="district-header" class="text-center col-md-1">Bairro</th>
 							<th id="city-header" class="text-center col-md-2">Município</th>
-							<th id="state-header" class="text-center col-md-2">Estado</th>				
+							<th id="state-header" class="text-center col-md-1">Estado</th>				
 							<th class="col-md-2 text-center" sec:authorize="hasRole('admin')">Opções</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="imovel, count : ${imoveis}">
 							<td class="text-center" th:text="${count.index+1}"></td>
+							<td class="text-center">
+								<div th:each="imagem : ${imovel.imagens}">
+									<img class="gft-image" th:value="imagem.id" th:src="@{${imagem.location}}"/>
+								</div>			
+							</td>
 							<td class="text-center" th:text="${imovel.name}"></td>
 							<td class="text-center" th:text="${imovel.bedroom}"></td>
 							<td class="text-center" th:text="${imovel.business.name}"></td>
@@ -80,7 +86,7 @@
 							<td class="text-center" th:text="${imovel.address}"></td>
 							<td class="text-center" th:text="${imovel.district.name}"></td>			
 							<td class="text-center" th:text="${imovel.city.name}"></td>
-							<td class="text-center" th:text="${imovel.state.uf}"></td>
+							<td class="text-center" th:text="${imovel.city.state.uf}"></td>
 							<td class="text-center" sec:authorize="hasRole('admin')">
 								<a class="btn btn-link btn-xs" th:href="@{/imoveis/{id}(id=${imovel.id})}"
 										title="Editar" rel="tooltip" data-placement="top">
@@ -89,7 +95,7 @@
 								<a class="btn btn-link btn-xs" data-toggle="modal" data-target="#confirmarExclusaoModal"
 									th:attr="data-id=${imovel.id}, data-description=${imovel.name},
 											data-url='imoveis'"
-									title="Excluir" rel="tooltip" data-placement="top">
+									title="Excluir imóvel" rel="tooltip" data-placement="top">
 									<span class="glyphicon glyphicon-remove"></span>
 								</a>
 							</td>

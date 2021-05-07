@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.gft.imobiliaria.model.Bairro;
 import com.gft.imobiliaria.model.Categoria;
@@ -41,8 +42,20 @@ public class ImovelService {
 	@Autowired
 	private EstadosRepository estados;
 	
-	public void save(Imovel imovel) {
+	@Autowired
+	private ImagemService imagemService;
+	
+	public void save(Imovel imovel, MultipartFile[] images) throws Exception {	
 		imoveis.save(imovel);
+		
+		if (images != null) {
+			
+			for (MultipartFile image : images) {
+				if (!image.getOriginalFilename().isEmpty()) {
+					imagemService.save(image, imovel);
+				}
+			}		
+		}	
 	}
 	
 	public void delete(Long id) {

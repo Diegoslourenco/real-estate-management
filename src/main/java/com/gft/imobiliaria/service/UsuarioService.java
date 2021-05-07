@@ -1,10 +1,14 @@
 package com.gft.imobiliaria.service;
-
 import java.util.List;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -75,18 +79,28 @@ public class UsuarioService {
 		return false;	
 	}
 	
-	public void sendEmail(Usuario usuario) {
+	public void sendEmail(Usuario usuario) throws MessagingException {
 		
-		SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-		
-		simpleMailMessage.setFrom("imobgft@gmail.com");
-		simpleMailMessage.setTo(usuario.getEmail());
-		simpleMailMessage.setSubject("Acesse nosso site para ver as novidades!");
-		simpleMailMessage.setText("Olá, " + usuario.getName() + "!\n"
-									+"\nVenha ver as novidades nos imóveis!\n"
-									+ "\nAcesse nosso site!\n"
-									+ "\nEquipe Imobiliária GFT");
-		
-		mailSender.send(simpleMailMessage);			
+	    MimeMessage message = mailSender.createMimeMessage();
+	     
+	    MimeMessageHelper helper = new MimeMessageHelper(message, true);
+	    
+	    helper.setFrom("imobgft@gmail.com");
+	    helper.setTo(usuario.getEmail());
+	    helper.setSubject("Acesse nosso site para ver as novidades!");
+	    helper.setText("Olá, " + usuario.getName() + "!\n"
+				+"\nVenha ver as novidades nos imóveis!\n"
+				+ "\nAcesse nosso site!\n"
+				+ "\nEquipe Imobiliária GFT");
+	    
+	    ClassPathResource file = new ClassPathResource("/static/documents/imobgft.docx");
+	    
+	    helper.addAttachment("Imobgft.docx", file);
+	    
+	    try {
+	    	mailSender.send(message);
+	    } catch (MailException ex) {
+	    	System.err.println(ex.getMessage());
+	    }	
 	}
 }

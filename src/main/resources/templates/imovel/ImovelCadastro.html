@@ -10,8 +10,8 @@
 </head>
 
 
-<section layout:fragment="content">
-	<form class="form-horizontal" method="POST" action="/imoveis" th:object="${imovel}">
+<section layout:fragment="content" sec:authorize="hasRole('admin')">
+	<form class="form-horizontal" method="POST" action="/imoveis" th:object="${imovel}" enctype="multipart/form-data">
 	
 		<div th:replace="MensagemGeral"></div>
 		<div th:replace="MensagemErro"></div>		
@@ -133,7 +133,41 @@
   						<input type="text" class="form-control" id="name" th:field="*{address}"
   								placeholder="Endereço do imóvel"/>
   					</div>
-  				</div>		
+  				</div>
+  				
+			    <div class="form-group" th:if="${imovel.imagens == null}">
+			        <label for="image" class="col-sm-2 control-label">Foto do Imóvel</label>
+			        <div class="col-sm-4">
+				        <div class="input-group">
+				            <span class="input-group-btn">
+				                <span class="btn btn-default btn-file">
+				                    Selecione <input type="file" name="files" id="image1">
+				                </span>
+				            </span>
+				            <input type="text" class="form-control" readonly>
+				        </div>
+			        	<img id='img-upload1'/>
+			        </div>
+			    </div>   					
+				
+			    <div class="form-group" th:if="${imovel.imagens == null}">
+			        <label for="image" class="col-sm-2 control-label">Foto do Imóvel</label>
+			        <div class="col-sm-4">
+				        <div class="input-group">
+				            <span class="input-group-btn">
+				                <span class="btn btn-default btn-file">
+				                    Selecione <input type="file" name="files" id="image2">
+				                </span>
+				            </span>
+				            <input type="text" class="form-control" readonly>
+				        </div>
+			        	<img id='img-upload2'/>
+			        </div>
+			    </div>
+			    
+			    <div th:if="${imovel.imagens != null}" style="display:none">
+			    	<input type="file" name="files">
+			    </div>	
 
   				<div class="form-group">
   					<div class="col-sm-offset-2 col-sm-10">

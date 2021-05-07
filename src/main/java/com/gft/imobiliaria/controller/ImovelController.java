@@ -16,12 +16,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gft.imobiliaria.model.Bairro;
 import com.gft.imobiliaria.model.Categoria;
 import com.gft.imobiliaria.model.Estado;
+import com.gft.imobiliaria.model.Imagem;
 import com.gft.imobiliaria.model.Imovel;
 import com.gft.imobiliaria.model.Municipio;
 import com.gft.imobiliaria.model.Negocio;
@@ -29,6 +32,7 @@ import com.gft.imobiliaria.repository.filter.FieldsImovelFilter;
 import com.gft.imobiliaria.repository.filter.ImovelFilter;
 import com.gft.imobiliaria.service.MunicipioService;
 import com.gft.imobiliaria.service.NegocioService;
+
 import com.gft.imobiliaria.service.BairroService;
 import com.gft.imobiliaria.service.CategoriaService;
 import com.gft.imobiliaria.service.EstadoService;
@@ -40,6 +44,7 @@ public class ImovelController {
 	
 	private static final String CADASTRO_VIEW = "imovel/ImovelCadastro";
 	private static final String BUSCA_VIEW = "imovel/ImovelBusca";
+	private static final String EDITAR_IMAGEM_VIEW = "imovel/ImovelImagemTrocar";
 	
 	@Autowired
 	private NegocioService negocioService;
@@ -65,12 +70,12 @@ public class ImovelController {
 		
 		mv.setViewName(CADASTRO_VIEW);
 		mv.addObject("imovel", new Imovel());
-		
+			
 		return mv;
 	}
 	
 	@PostMapping
-	public ModelAndView save(@ModelAttribute("imovel") @Validated Imovel imovel, Errors errors, RedirectAttributes attributes) {
+	public ModelAndView save(@RequestParam("files") MultipartFile[] images, @ModelAttribute("imovel") @Validated Imovel imovel, Errors errors, RedirectAttributes attributes) throws Exception {
 		
 		ModelAndView mv = new ModelAndView();
 		
@@ -80,7 +85,7 @@ public class ImovelController {
 			return mv;
 		}
 		
-		imovelService.save(imovel);
+		imovelService.save(imovel, images);
 		
 		mv = new ModelAndView("redirect:/imoveis/novo");
 		attributes.addFlashAttribute("message", "Imóvel salvo com sucesso");
@@ -110,7 +115,31 @@ public class ImovelController {
 	public ModelAndView update(@PathVariable("id") Imovel imovel) {
 		
 		ModelAndView mv = new ModelAndView(CADASTRO_VIEW);
-		mv.addObject(imovel);
+		mv.addObject("imovel", imovel);
+		
+		return mv;
+	}
+	
+	@GetMapping("/imagens/{id}")
+	public ModelAndView updateImages(@PathVariable("id") Imovel imovel) {
+		
+		ModelAndView mv = new ModelAndView(EDITAR_IMAGEM_VIEW);
+		mv.addObject("imovel", imovel);
+		
+		List<Imagem> allImagens = imovel.getImagens();
+		
+		
+		if (allImagens.isEmpty()) {
+			return mv;
+		}
+		else if (allImagens.size() == 1) {
+			mv.addObject("imagem1", allImagens.get(0));
+			
+			return mv;
+		}
+			
+		mv.addObject("imagem1", allImagens.get(0));
+		mv.addObject("imagem2", allImagens.get(1));
 		
 		return mv;
 	}

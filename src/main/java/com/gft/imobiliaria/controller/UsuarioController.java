@@ -1,5 +1,7 @@
 package com.gft.imobiliaria.controller;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
@@ -83,7 +85,7 @@ public class UsuarioController {
 	}
 	
 	@GetMapping("{id}")
-	public ModelAndView sendEmail(@PathVariable("id") Usuario usuario, RedirectAttributes attributes) {
+	public ModelAndView sendEmail(@PathVariable("id") Usuario usuario, RedirectAttributes attributes) throws MessagingException {
 		
 		usuarioService.sendEmail(usuario);
 		
@@ -92,8 +94,4 @@ public class UsuarioController {
 		
 		return mv;
 	}
-	
-	
-	
-
 }

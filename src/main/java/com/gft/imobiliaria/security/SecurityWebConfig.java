@@ -28,7 +28,21 @@ public class SecurityWebConfig extends WebSecurityConfigurerAdapter {
 				"/css/**",
 				"/images/**").permitAll()
 		.antMatchers(
-				"/imoveis/pesquisar**").hasAnyRole("user", "admin")
+				"/usuarios**",
+				"/usuarios/novo",
+				"/categorias**",
+				"/categorias/novo",
+				"/negocios**",
+				"/negocios/novo",
+				"/estados**",
+				"/estados/novo",
+				"/municipios**",
+				"/municipios/novo",
+				"/bairros**",
+				"/bairros/novo",
+				"/imoveis/novo").hasRole("admin")
+		.antMatchers(
+				"/imoveis/pesquisar**").hasRole("user")
 		.anyRequest().authenticated()
 		.and()
 		.formLogin()
@@ -41,8 +55,7 @@ public class SecurityWebConfig extends WebSecurityConfigurerAdapter {
 			.clearAuthentication(true)
 			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 			.logoutSuccessUrl("/login?logout")
-			.permitAll()
-			.and().csrf().disable();;
+			.and().csrf().disable();
 	}
 	
 	@Override

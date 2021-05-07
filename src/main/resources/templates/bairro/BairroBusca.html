@@ -8,7 +8,7 @@
 	<title>Bairros</title>
 </head>
 
-<section layout:fragment="content">
+<section layout:fragment="content" sec:authorize="hasRole('admin')">
 	<div th:replace="MensagemGeral"></div>	
 
 	<div class="panel panel-default">
@@ -59,7 +59,7 @@
 							<td class="text-center" th:text="${count.index+1}"></td>
 							<td class="text-center" th:text="${bairro.name}"></td>
 							<td class="text-center" th:text="${bairro.city.name}"></td>
-							<td class="text-center" th:text="${bairro.state.name}"></td>
+							<td class="text-center" th:text="${bairro.city.state.name}"></td>
 							<td class="text-center">
 								<a class="btn btn-link btn-xs" th:href="@{/bairros/{id}(id=${bairro.id})}"
 										title="Editar" rel="tooltip" data-placement="top">
